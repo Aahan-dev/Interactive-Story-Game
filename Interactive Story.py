@@ -41,4 +41,40 @@ class InteractiveStory:
             }
         }
 
-    
+    def get_story(self, section):
+        """Return the story text and choices for the given section."""
+        return self.story[section]['text'], self.story[section]['choices']
+
+
+    def run(self):
+        """Run the interactive story until the user reaches an ending."""
+        current_section = 'start'
+       
+        while True:
+            text, choices = self.get_story(current_section)
+            print(text)
+           
+            # If there are no choices, the story ends
+            if not choices:
+                break
+           
+            # Display choices
+            print("What do you want to do?")
+            for choice in choices:
+                print(f"- {choice}")
+
+
+            # Get user input for the next choice
+            user_choice = input("Choose an option: ").strip().lower()
+           
+            # Validate user choice
+            if user_choice in choices:
+                current_section = choices[user_choice]
+            else:
+                print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    # Create an instance of InteractiveStory and run it
+    story = InteractiveStory()
+    story.run()
